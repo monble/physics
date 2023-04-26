@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Рассчет реакции в столбик</title>
+</head>
+<body>
+	<h1>Рассчет реакции в столбик</h1>
+	<p>Введите значения для рассчета реакции в столбик:</p>
+	<form>
+		<label for="amu1">Изотоп 1:</label>
+		<input type="text" id="amu1" name="amu1"><br><br>
+		<label for="amu3">Элемент 2:</label>
+		<input type="text" id="amu3" name="amu3"><br><br>
+		<label for="amu4">Элемент 3:</label>
+		<input type="text" id="amu4" name="amu4"><br><br>
+		<label for="amu2">Изотоп 2:</label>
+		<input type="text" id="amu2" name="amu2"><br><br>
+		<input type="button" value="Рассчитать" onclick="calculate()"><br><br>
+	</form>
+	<p id="result"></p>
+	<script>
+		function calculate() {
+			var amu1 = parseFloat(document.getElementById("amu1").value);
+			var amu3 = parseFloat(document.getElementById("amu3").value);
+			var amu4 = parseFloat(document.getElementById("amu4").value);
+			var amu2 = parseFloat(document.getElementById("amu2").value);
+
+			var deltaM = amu1 + amu3 - amu2 - amu4;
+			var V2 = (2*deltaM*1.66*(10**-27)*9*(10**16))/(((amu4*1.66*10**-27)**2)/(amu2*1.66*10**-27) + amu4*1.66*10**-27);
+			if (V2 < 0) {
+				V2 = V2*-1;
+			}
+
+			var V2sqrt = Math.sqrt(V2);
+			var V1 = (amu4*V2sqrt)/amu2;
+
+			document.getElementById("result").innerHTML = "Ответ:<br>V1 = " + V1/1000000 + " * 10^6 м/с<br>V2 = " + V2sqrt/1000000 + " * 10^6 м/с";
+		}
+	</script>
+</body>
+</html>
